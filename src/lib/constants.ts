@@ -85,8 +85,32 @@ export const OQ_SPHERE_VALUES: Record<SphereColor, number> = {
   hidden: 0,
 };
 
+// $ot - Orb Trace sphere values
+export const OT_SPHERE_VALUES: Record<SphereColor, number> = {
+  cyan: 20,
+  blue: 10,
+  green: 35,
+  yellow: 55,
+  orange: 90,
+  red: 150,
+  purple: 0,
+  white: 0,
+  darkblue: 0,
+  hidden: 0,
+};
+
+// $ot - Non-blue color groups (placed as contiguous runs)
+export const OT_COLOR_GROUPS: { color: SphereColor; count: number }[] = [
+  { color: 'cyan', count: 4 },
+  { color: 'green', count: 3 },
+  { color: 'yellow', count: 3 },
+  { color: 'orange', count: 2 },
+  { color: 'red', count: 2 },
+  { color: 'white', count: 2 },
+];
+
 // Game configurations
-export const GAME_CONFIGS: Record<'oh' | 'oc' | 'oq', GameConfig> = {
+export const GAME_CONFIGS: Record<'oh' | 'oc' | 'oq' | 'ot', GameConfig> = {
   oh: {
     gridSize: 5,
     maxClicks: 5,
@@ -100,6 +124,11 @@ export const GAME_CONFIGS: Record<'oh' | 'oc' | 'oq', GameConfig> = {
   oq: {
     gridSize: 5,
     maxClicks: 7,
+    timeLimit: 120,
+  },
+  ot: {
+    gridSize: 5,
+    maxClicks: 4,
     timeLimit: 120,
   },
 };

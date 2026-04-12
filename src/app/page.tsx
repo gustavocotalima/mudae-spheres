@@ -26,6 +26,14 @@ const games = [
     color: 'purple',
     gradient: SPHERE_GRADIENTS.purple,
   },
+  {
+    id: 'ot',
+    name: '$ot - Orb Trace',
+    description: 'Evite as esferas azuis! Cores iguais ficam em sequencia na mesma linha ou coluna.',
+    clicks: 4,
+    color: 'purple',
+    gradient: SPHERE_GRADIENTS.purple,
+  },
 ];
 
 export default function Home() {

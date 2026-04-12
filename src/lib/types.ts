@@ -59,6 +59,9 @@ export interface OqGameState extends GameState {
   targetPurples: number;
 }
 
+// $ot specific - Trace game state
+export type OtGameState = GameState;
+
 // Grid position
 export interface Position {
   row: number;
