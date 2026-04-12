@@ -78,30 +78,6 @@ export function initializeOhGame(): GameState {
   };
 }
 
-// Get adjacent positions
-function getAdjacentPositions(row: number, col: number): Position[] {
-  const positions: Position[] = [];
-  const directions = [
-    [-1, -1], [-1, 0], [-1, 1],
-    [0, -1],          [0, 1],
-    [1, -1], [1, 0], [1, 1],
-  ];
-
-  for (const [dr, dc] of directions) {
-    const newRow = row + dr;
-    const newCol = col + dc;
-    if (newRow >= 0 && newRow < GRID_SIZE && newCol >= 0 && newCol < GRID_SIZE) {
-      positions.push({ row: newRow, col: newCol });
-    }
-  }
-
-  return positions;
-}
-
-// Get sphere at position
-function getSphereAt(grid: Sphere[], row: number, col: number): Sphere | undefined {
-  return grid.find(s => s.row === row && s.col === col);
-}
 
 // Handle white sphere split
 function handleWhiteSplit(): RewardEntry[] {
@@ -156,7 +132,7 @@ export function processOhClick(state: GameState, sphereId: number): GameState {
     newRewards.push({
       color: 'white',
       value: splitTotal,
-      message: `se divide em ${colorNames}`,
+      message: `whiteSplit:${colorNames}`,
     });
   } else if (sphere.transforms) {
     // Dark blue transforms into another color
@@ -165,7 +141,7 @@ export function processOhClick(state: GameState, sphereId: number): GameState {
     newRewards.push({
       color: transformed.color, // Show the transformed color
       value: transformed.value,
-      message: `Azul Escuro virou`,
+      message: `darkBlueTransform`,
     });
   } else {
     // Normal sphere
@@ -177,15 +153,9 @@ export function processOhClick(state: GameState, sphereId: number): GameState {
     });
   }
 
-  // Handle reveal mechanics (blue reveals 3, cyan reveals 1)
   if (sphere.revealsCount && sphere.revealsCount > 0) {
-    const adjacent = getAdjacentPositions(sphere.row, sphere.col);
-    const hiddenAdjacent = adjacent
-      .map(pos => getSphereAt(newGrid, pos.row, pos.col))
-      .filter(s => s && !s.revealed) as Sphere[];
-
-    // Shuffle and reveal up to revealsCount
-    const toReveal = hiddenAdjacent
+    const hidden = newGrid.filter(s => !s.revealed);
+    const toReveal = hidden
       .sort(() => Math.random() - 0.5)
       .slice(0, sphere.revealsCount);
 

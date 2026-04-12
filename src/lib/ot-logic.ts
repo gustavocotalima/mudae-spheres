@@ -133,13 +133,14 @@ export function processOtClick(state: OtGameState, sphereId: number): OtGameStat
       color: 'white',
       value: splitTotal,
       isFree: true,
-      message: `se divide em ${splitColors.join(' + ')}`,
+      message: `whiteSplit:${splitColors.join(' + ')}`,
     });
   } else if (isBlue) {
+    scoreGain = sphere.value;
     newRewards.push({
       color: 'blue',
-      value: 0,
-      message: 'Esfera azul! -1 clique.',
+      value: sphere.value,
+      message: 'blueHit',
     });
   } else {
     scoreGain = sphere.value;

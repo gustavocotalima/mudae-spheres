@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { OtGameState } from '@/lib/types';
 import { initializeOtGame, processOtClick } from '@/lib/ot-logic';
+import { useI18n } from '@/lib/i18n';
 import SphereGrid from '@/components/SphereGrid';
 import GameHeader from '@/components/GameHeader';
 import RewardLog from '@/components/RewardLog';
@@ -11,6 +12,7 @@ import RewardLog from '@/components/RewardLog';
 export default function OrbTracePage() {
   const [gameState, setGameState] = useState<OtGameState | null>(null);
   const [stockTotal, setStockTotal] = useState(0);
+  const { t } = useI18n();
 
   const startNewGame = useCallback(() => {
     setGameState(initializeOtGame());
@@ -20,7 +22,6 @@ export default function OrbTracePage() {
     startNewGame();
   }, [startNewGame]);
 
-  // Timer countdown
   useEffect(() => {
     if (!gameState || gameState.gameStatus !== 'playing') return;
 
@@ -39,7 +40,6 @@ export default function OrbTracePage() {
     return () => clearInterval(timer);
   }, [gameState?.gameStatus]);
 
-  // Update stock when game finishes
   useEffect(() => {
     if (gameState?.gameStatus === 'finished') {
       setStockTotal(prev => prev + gameState.totalScore);
@@ -54,7 +54,7 @@ export default function OrbTracePage() {
   if (!gameState) {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-white">Carregando...</div>
+        <div className="text-white">{t.loading}</div>
       </div>
     );
   }
@@ -69,7 +69,7 @@ export default function OrbTracePage() {
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          Voltar
+          {t.back}
         </Link>
 
         <GameHeader
@@ -81,13 +81,9 @@ export default function OrbTracePage() {
           gameStatus={gameState.gameStatus}
           extraInfo={
             <div className="space-y-1">
-              <p>Voce pode clicar <span className="text-white font-bold">{gameState.maxClicks} vezes</span> (por 2 minutos).</p>
-              <p className="text-xs text-gray-400">
-                Todas as cores sao gratis, exceto as esferas azuis.
-              </p>
-              <p className="text-xs text-gray-400">
-                Cores iguais ficam em sequencia na mesma linha ou coluna.
-              </p>
+              <p>{t.otClicks(gameState.maxClicks)}</p>
+              <p className="text-xs text-gray-400">{t.otFreeHint}</p>
+              <p className="text-xs text-gray-400">{t.otTraceHint}</p>
             </div>
           }
         />
@@ -102,7 +98,7 @@ export default function OrbTracePage() {
         <RewardLog rewards={gameState.rewardLog} />
 
         <div className="mt-4 text-center">
-          <span className="text-gray-400">Estoque: </span>
+          <span className="text-gray-400">{t.stock} </span>
           <span className="text-yellow-400 font-bold">{stockTotal}</span>
         </div>
 
@@ -112,7 +108,7 @@ export default function OrbTracePage() {
               onClick={startNewGame}
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
             >
-              Jogar Novamente
+              {t.playAgain}
             </button>
           </div>
         )}

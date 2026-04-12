@@ -1,3 +1,9 @@
 node_modules/
 .next/
 .env*.local
+.coolify.json
+.DS_Store
+.vercel/
+logs/
+*.tsbuildinfo
+next-env.d.ts

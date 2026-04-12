@@ -1,56 +1,62 @@
+'use client';
+
 import Link from 'next/link';
 import { SPHERE_GRADIENTS } from '@/lib/constants';
-
-const games = [
-  {
-    id: 'oh',
-    name: '$oh - Orb Harvest',
-    description: 'Clique em esferas aleatorias para colher recompensas. Esferas azuis revelam 3 botoes, cianas revelam 1!',
-    clicks: 5,
-    color: 'blue',
-    gradient: SPHERE_GRADIENTS.blue,
-  },
-  {
-    id: 'oc',
-    name: '$oc - Orb Chest',
-    description: 'Encontre a esfera vermelha usando pistas das cores! Laranjas sao adjacentes, amarelas sao diagonais.',
-    clicks: 5,
-    color: 'red',
-    gradient: SPHERE_GRADIENTS.red,
-  },
-  {
-    id: 'oq',
-    name: '$oq - Orb Quest',
-    description: 'Campo minado! Encontre 3 das 4 esferas roxas para transformar a 4a em vermelha. Use as cores como dicas!',
-    clicks: 7,
-    color: 'purple',
-    gradient: SPHERE_GRADIENTS.purple,
-  },
-  {
-    id: 'ot',
-    name: '$ot - Orb Trace',
-    description: 'Evite as esferas azuis! Cores iguais ficam em sequencia na mesma linha ou coluna.',
-    clicks: 4,
-    color: 'white',
-    gradient: SPHERE_GRADIENTS.white,
-  },
-];
+import { useI18n, LanguageToggle } from '@/lib/i18n';
 
 export default function Home() {
+  const { t } = useI18n();
+
+  const games = [
+    {
+      id: 'oh',
+      name: '$oh - Orb Harvest',
+      description: t.ohDesc,
+      clicks: 5,
+      color: 'blue',
+      gradient: SPHERE_GRADIENTS.blue,
+    },
+    {
+      id: 'oc',
+      name: '$oc - Orb Chest',
+      description: t.ocDesc,
+      clicks: 5,
+      color: 'red',
+      gradient: SPHERE_GRADIENTS.red,
+    },
+    {
+      id: 'oq',
+      name: '$oq - Orb Quest',
+      description: t.oqDesc,
+      clicks: 7,
+      color: 'purple',
+      gradient: SPHERE_GRADIENTS.purple,
+    },
+    {
+      id: 'ot',
+      name: '$ot - Orb Trace',
+      description: t.otDesc,
+      clicks: 4,
+      color: 'white',
+      gradient: SPHERE_GRADIENTS.white,
+    },
+  ];
+
   return (
     <main className="min-h-screen bg-gray-900 py-12 px-4">
       <div className="max-w-2xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-12">
+          <div className="flex justify-end mb-4">
+            <LanguageToggle />
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Mudae Spheres
+            {t.title}
           </h1>
           <p className="text-gray-400 text-lg">
-            Pratique os minigames de esferas do Mudae!
+            {t.subtitle}
           </p>
         </div>
 
-        {/* Sphere Animation */}
         <div className="flex justify-center gap-4 mb-12">
           {['cyan', 'blue', 'green', 'yellow', 'red', 'purple'].map((color, i) => (
             <div
@@ -64,7 +70,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Game Cards */}
         <div className="space-y-6">
           {games.map((game) => (
             <Link
@@ -74,13 +79,10 @@ export default function Home() {
             >
               <div className="bg-gray-800 rounded-xl p-6 border-2 border-gray-700 hover:border-gray-500 transition-all duration-300 hover:scale-[1.02]">
                 <div className="flex items-start gap-4">
-                  {/* Sphere Icon */}
                   <div
                     className="w-16 h-16 rounded-full flex-shrink-0 border-2 border-gray-600 group-hover:scale-110 transition-transform"
                     style={{ background: game.gradient }}
                   />
-
-                  {/* Game Info */}
                   <div className="flex-1">
                     <h2 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
                       {game.name}
@@ -90,15 +92,13 @@ export default function Home() {
                     </p>
                     <div className="flex items-center gap-4 text-sm">
                       <span className="bg-gray-700 px-3 py-1 rounded-full text-gray-300">
-                        {game.clicks} cliques
+                        {game.clicks} {t.clicks}
                       </span>
                       <span className="text-gray-500">
-                        2 minutos
+                        {t.minutes}
                       </span>
                     </div>
                   </div>
-
-                  {/* Arrow */}
                   <div className="text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -110,12 +110,9 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Footer */}
         <div className="mt-12 text-center text-gray-500 text-sm">
-          <p>Inspirado no sistema de esferas do Mudae Bot</p>
-          <p className="mt-2">
-            Criado para pratica - nao afiliado ao Mudae oficial
-          </p>
+          <p>{t.footer1}</p>
+          <p className="mt-2">{t.footer2}</p>
         </div>
       </div>
     </main>
