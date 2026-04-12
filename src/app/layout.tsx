@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Mudae Spheres - Minigames",
-  description: "Pratique os minigames de esferas do Mudae: $oh, $oc e $oq",
+  description: "Pratique os minigames de esferas do Mudae: $oh, $oc, $oq e $ot",
 };
 
 export default function RootLayout({
