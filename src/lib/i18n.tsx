@@ -70,8 +70,7 @@ const translations = {
     // Logic messages
     blueHit: 'Esfera azul! -1 clique.',
     whiteSplit: (colors: string) => `se divide em ${colors}`,
-    darkBlueTransform: 'Azul Escuro virou',
-    blackTransform: (color: string) => `Preta virou ${color}`,
+    darkTransform: (color: string) => `Sombria virou ${color}`,
 
     // Color names
     colors: {
@@ -83,8 +82,8 @@ const translations = {
       red: 'Vermelha',
       purple: 'Roxa',
       white: 'Branca',
-      black: 'Preta',
-      darkblue: 'Azul Escuro',
+      dark: 'Sombria',
+      rainbow: 'Arco-iris',
       hidden: 'Oculta',
     } as Record<string, string>,
 
@@ -153,8 +152,7 @@ const translations = {
 
     blueHit: 'Blue sphere! -1 click.',
     whiteSplit: (colors: string) => `splits into ${colors}`,
-    darkBlueTransform: 'Dark Blue became',
-    blackTransform: (color: string) => `Black became ${color}`,
+    darkTransform: (color: string) => `Dark became ${color}`,
 
     colors: {
       cyan: 'Cyan',
@@ -165,8 +163,8 @@ const translations = {
       red: 'Red',
       purple: 'Purple',
       white: 'White',
-      black: 'Black',
-      darkblue: 'Dark Blue',
+      dark: 'Dark',
+      rainbow: 'Rainbow',
       hidden: 'Hidden',
     } as Record<string, string>,
 
@@ -227,8 +225,7 @@ export type Translations = {
   otColorCount: (n: number) => string;
   blueHit: string;
   whiteSplit: (colors: string) => string;
-  darkBlueTransform: string;
-  blackTransform: (color: string) => string;
+  darkTransform: (color: string) => string;
   colors: Record<string, string>;
   colorLegend: { blue: string; cyan: string; green: string; yellow: string; orange: string };
 };

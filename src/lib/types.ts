@@ -8,8 +8,8 @@ export type SphereColor =
   | 'red'
   | 'purple'
   | 'white'
-  | 'black'
-  | 'darkblue'
+  | 'dark'
+  | 'rainbow'
   | 'hidden';
 
 // Sphere state in the grid
@@ -25,7 +25,6 @@ export interface Sphere {
   isFree?: boolean;        // Purple - doesn't consume click
   revealsCount?: number;   // How many adjacent to reveal (blue=3, cyan=1)
   splits?: boolean;        // White - splits into 4 random
-  transforms?: boolean;    // Dark blue - transforms to another color
 }
 
 // Game state

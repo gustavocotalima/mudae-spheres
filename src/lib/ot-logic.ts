@@ -8,6 +8,7 @@ import {
   OT_RARE_MAX,
   OT_RARE_SPHERE_COUNT,
   GAME_CONFIGS,
+  maybeRainbow,
 } from './constants';
 
 const SPLIT_COLORS: SphereColor[] = ['cyan', 'blue', 'green', 'yellow', 'orange', 'red'];
@@ -72,7 +73,8 @@ function generateOtGrid(
     for (const pos of chosen) {
       const key = `${pos.row},${pos.col}`;
       occupied.add(key);
-      colorMap.set(key, group.color);
+      // Rare red→rainbow upgrade per sphere
+      colorMap.set(key, group.color === 'red' ? maybeRainbow('red') : group.color);
     }
   }
 
@@ -149,7 +151,7 @@ export function processOtClick(state: OtGameState, sphereId: number): OtGameStat
 
   if (sphere.color === 'white') {
     const splitColors = Array.from({ length: 4 }, () =>
-      SPLIT_COLORS[Math.floor(Math.random() * SPLIT_COLORS.length)]
+      maybeRainbow(SPLIT_COLORS[Math.floor(Math.random() * SPLIT_COLORS.length)])
     );
     const splitTotal = splitColors.reduce((sum, c) => sum + OT_SPHERE_VALUES[c], 0);
     scoreGain = splitTotal;
@@ -159,16 +161,16 @@ export function processOtClick(state: OtGameState, sphereId: number): OtGameStat
       isFree: true,
       message: `whiteSplit:${splitColors.join(' + ')}`,
     });
-  } else if (sphere.color === 'black') {
+  } else if (sphere.color === 'dark') {
     const transformPool = SPLIT_COLORS.filter(c => c !== 'blue');
-    const transformed = transformPool[Math.floor(Math.random() * transformPool.length)];
+    const transformed = maybeRainbow(transformPool[Math.floor(Math.random() * transformPool.length)]);
     const transformedValue = OT_SPHERE_VALUES[transformed];
     scoreGain = transformedValue;
     newRewards.push({
-      color: 'black',
+      color: 'dark',
       value: transformedValue,
       isFree: true,
-      message: `blackTransform:${transformed}`,
+      message: `darkTransform:${transformed}`,
     });
   } else if (isBlue) {
     scoreGain = sphere.value;

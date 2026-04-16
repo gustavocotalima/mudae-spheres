@@ -1,5 +1,5 @@
 import { Sphere, SphereColor, OcGameState, RewardEntry, Position } from './types';
-import { GRID_SIZE, OC_SPHERE_VALUES, GAME_CONFIGS } from './constants';
+import { GRID_SIZE, OC_SPHERE_VALUES, GAME_CONFIGS, maybeRainbow } from './constants';
 
 // Position helpers
 function posToIndex(row: number, col: number): number {
@@ -189,7 +189,7 @@ export function initializeOcGame(): OcGameState {
       let color: SphereColor = 'blue'; // Default: safe zone
 
       if (row === redRow && col === redCol) {
-        color = 'red';
+        color = maybeRainbow('red');
       } else if (orangePositions.some(p => p.row === row && p.col === col)) {
         color = 'orange';
       } else if (yellowPositions.some(p => p.row === row && p.col === col)) {

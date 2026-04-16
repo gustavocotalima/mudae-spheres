@@ -1,5 +1,5 @@
 import { Sphere, SphereColor, OqGameState, RewardEntry, Position } from './types';
-import { GRID_SIZE, OQ_SPHERE_VALUES, GAME_CONFIGS } from './constants';
+import { GRID_SIZE, OQ_SPHERE_VALUES, GAME_CONFIGS, maybeRainbow } from './constants';
 
 // Position helpers
 function posToIndex(row: number, col: number): number {
@@ -154,9 +154,9 @@ export function processOqClick(state: OqGameState, sphereId: number): OqGameStat
       );
 
       if (remainingPurple) {
-        remainingPurple.color = 'red';
-        remainingPurple.value = OQ_SPHERE_VALUES.red;
-        remainingPurple.revealed = true; // Reveal the transformed red sphere
+        remainingPurple.color = maybeRainbow('red');
+        remainingPurple.value = OQ_SPHERE_VALUES[remainingPurple.color];
+        remainingPurple.revealed = true; // Reveal the transformed red/rainbow sphere
       }
 
       reward.message = `Encontrou ${newPurplesFound} roxas! A 4a vira vermelha!`;

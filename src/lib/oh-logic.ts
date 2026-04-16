@@ -5,7 +5,8 @@ import {
   OH_SPHERE_VALUES,
   OH_SPHERE_WEIGHTS,
   REVEAL_COUNTS,
-  GAME_CONFIGS
+  GAME_CONFIGS,
+  maybeRainbow,
 } from './constants';
 
 // Get random value in range
@@ -33,7 +34,7 @@ function weightedRandomColor(): SphereColor {
 
 // Generate random sphere
 function generateSphere(id: number, row: number, col: number): Sphere {
-  const color = weightedRandomColor();
+  const color = maybeRainbow(weightedRandomColor());
   const valueRange = OH_SPHERE_VALUES[color];
   const value = randomInRange(valueRange.min, valueRange.max);
 
@@ -48,7 +49,6 @@ function generateSphere(id: number, row: number, col: number): Sphere {
     isFree: color === 'purple',
     revealsCount: REVEAL_COUNTS[color],
     splits: color === 'white',
-    transforms: color === 'darkblue',
   };
 }
 
@@ -82,10 +82,10 @@ export function initializeOhGame(): GameState {
 // Handle white sphere split
 function handleWhiteSplit(): RewardEntry[] {
   const rewards: RewardEntry[] = [];
-  const splitColors: SphereColor[] = ['cyan', 'blue', 'green', 'yellow'];
+  const splitColors: SphereColor[] = ['cyan', 'blue', 'green', 'yellow', 'red'];
 
   for (let i = 0; i < 4; i++) {
-    const color = splitColors[Math.floor(Math.random() * splitColors.length)];
+    const color = maybeRainbow(splitColors[Math.floor(Math.random() * splitColors.length)]);
     const valueRange = OH_SPHERE_VALUES[color];
     const value = randomInRange(valueRange.min, valueRange.max);
     rewards.push({ color, value });
@@ -94,10 +94,10 @@ function handleWhiteSplit(): RewardEntry[] {
   return rewards;
 }
 
-// Handle dark blue transform
-function handleDarkBlueTransform(): { color: SphereColor; value: number } {
-  const transformColors: SphereColor[] = ['cyan', 'blue', 'green', 'yellow'];
-  const color = transformColors[Math.floor(Math.random() * transformColors.length)];
+// Handle dark sphere transform — any sphere appears in its shadow (equal chance)
+function handleDarkTransform(): { color: SphereColor; value: number } {
+  const transformColors: SphereColor[] = ['cyan', 'blue', 'green', 'yellow', 'orange', 'red', 'purple'];
+  const color = maybeRainbow(transformColors[Math.floor(Math.random() * transformColors.length)]);
   const valueRange = OH_SPHERE_VALUES[color];
   const value = randomInRange(valueRange.min, valueRange.max);
   return { color, value };
@@ -134,14 +134,15 @@ export function processOhClick(state: GameState, sphereId: number): GameState {
       value: splitTotal,
       message: `whiteSplit:${colorNames}`,
     });
-  } else if (sphere.transforms) {
-    // Dark blue transforms into another color
-    const transformed = handleDarkBlueTransform();
+  } else if (sphere.color === 'dark') {
+    // Dark sphere: any sphere appears in its shadow (equal chance)
+    const transformed = handleDarkTransform();
     totalReward = transformed.value;
     newRewards.push({
-      color: transformed.color, // Show the transformed color
+      color: 'dark',
       value: transformed.value,
-      message: `darkBlueTransform`,
+      isFree: true,
+      message: `darkTransform:${transformed.color}`,
     });
   } else {
     // Normal sphere

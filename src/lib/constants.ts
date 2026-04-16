@@ -10,8 +10,8 @@ export const SPHERE_COLORS: Record<SphereColor, string> = {
   red: '#ed4245',
   purple: '#9b59b6',
   white: '#ffffff',
-  black: '#1a1a1a',
-  darkblue: '#3b4874',
+  dark: '#1a1a1a',
+  rainbow: '#ff0080',
   hidden: '#4f545c',
 };
 
@@ -25,8 +25,8 @@ export const SPHERE_GRADIENTS: Record<SphereColor, string> = {
   red: 'radial-gradient(circle at 30% 30%, #ff7a7a, #ed4245, #c43033)',
   purple: 'radial-gradient(circle at 30% 30%, #c49ae8, #9b59b6, #7d4790)',
   white: 'radial-gradient(circle at 30% 30%, #ffffff, #e0e0e0, #c0c0c0)',
-  black: 'radial-gradient(circle at 30% 30%, #555555, #1a1a1a, #000000)',
-  darkblue: 'radial-gradient(circle at 30% 30%, #5a6896, #3b4874, #2d3758)',
+  dark: 'radial-gradient(circle at 30% 30%, #555555, #1a1a1a, #000000)',
+  rainbow: 'conic-gradient(from 0deg, #ff0000, #ff8800, #ffee00, #33dd33, #00cccc, #3366ff, #9933ff, #ff0088, #ff0000)',
   hidden: 'radial-gradient(circle at 30% 30%, #6b6f78, #4f545c, #36393f)',
 };
 
@@ -40,8 +40,8 @@ export const OH_SPHERE_VALUES: Record<SphereColor, { min: number; max: number }>
   red: { min: 150, max: 150 },
   purple: { min: 0, max: 0 },
   white: { min: 0, max: 0 },
-  black: { min: 0, max: 0 },
-  darkblue: { min: 0, max: 0 },
+  dark: { min: 0, max: 0 },
+  rainbow: { min: 500, max: 500 },
   hidden: { min: 0, max: 0 },
 };
 
@@ -56,8 +56,8 @@ export const OH_SPHERE_WEIGHTS: Record<SphereColor, number> = {
   orange: 3,     // ~3%
   red: 2,        // ~2% (rare)
   white: 3,      // Rare special (splits)
-  black: 0,
-  darkblue: 2,   // Rare special (transforms)
+  dark: 2,       // Rare special (transforms into another sphere)
+  rainbow: 0,    // Never spawned directly; only via red upgrade
   hidden: 0,
 };
 
@@ -71,8 +71,8 @@ export const OC_SPHERE_VALUES: Record<SphereColor, number> = {
   red: 150,
   purple: 0,
   white: 0,
-  black: 0,
-  darkblue: 0,
+  dark: 0,
+  rainbow: 500,
   hidden: 0,
 };
 
@@ -86,8 +86,8 @@ export const OQ_SPHERE_VALUES: Record<SphereColor, number> = {
   red: 150,
   purple: 0,
   white: 0,
-  black: 0,
-  darkblue: 0,
+  dark: 0,
+  rainbow: 500,
   hidden: 0,
 };
 
@@ -101,8 +101,8 @@ export const OT_SPHERE_VALUES: Record<SphereColor, number> = {
   red: 150,
   purple: 0,
   white: 0,
-  black: 0,
-  darkblue: 0,
+  dark: 0,
+  rainbow: 500,
   hidden: 0,
 };
 
@@ -115,7 +115,7 @@ export const OT_FIXED_GROUPS: { color: SphereColor; count: number }[] = [
 
 // $ot - Rare color pool. Each game picks OT_RARE_MIN..OT_RARE_MAX at count 2.
 // White splits into 4 random; Black transforms into one of the other colors.
-export const OT_RARE_POOL: SphereColor[] = ['orange', 'red', 'white', 'black'];
+export const OT_RARE_POOL: SphereColor[] = ['orange', 'red', 'white', 'dark'];
 export const OT_RARE_MIN = 2;
 export const OT_RARE_MAX = OT_RARE_POOL.length;
 export const OT_RARE_SPHERE_COUNT = 2;
@@ -164,7 +164,15 @@ export const COLOR_NAMES: Record<SphereColor, string> = {
   red: 'Vermelha',
   purple: 'Roxa',
   white: 'Branca',
-  black: 'Preta',
-  darkblue: 'Azul Escuro',
+  dark: 'Sombria',
+  rainbow: 'Arco-iris',
   hidden: 'Oculta',
 };
+
+// Rare upgrade: any red sphere has a small chance to become rainbow (+500)
+export const RAINBOW_FROM_RED_CHANCE = 0.03;
+export function maybeRainbow(color: SphereColor): SphereColor {
+  return color === 'red' && Math.random() < RAINBOW_FROM_RED_CHANCE
+    ? 'rainbow'
+    : color;
+}

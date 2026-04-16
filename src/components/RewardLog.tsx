@@ -1,8 +1,19 @@
 'use client';
 
-import { RewardEntry } from '@/lib/types';
-import { SPHERE_COLORS } from '@/lib/constants';
+import { ReactNode } from 'react';
+import { RewardEntry, SphereColor } from '@/lib/types';
+import { SPHERE_COLORS, SPHERE_GRADIENTS } from '@/lib/constants';
 import { useI18n } from '@/lib/i18n';
+
+function SphereDot({ color }: { color: SphereColor }) {
+  return (
+    <span
+      aria-label={color}
+      className="inline-block w-3 h-3 rounded-full align-middle border border-gray-500/60 mx-0.5"
+      style={{ background: SPHERE_GRADIENTS[color] }}
+    />
+  );
+}
 
 interface RewardLogProps {
   rewards: RewardEntry[];
@@ -43,14 +54,28 @@ export default function RewardLog({ rewards, title }: RewardLogProps) {
   );
 }
 
-function translateMessage(message: string, t: ReturnType<typeof useI18n>['t']): string {
+function renderMessage(message: string, t: ReturnType<typeof useI18n>['t']): ReactNode {
   if (message === 'blueHit') return t.blueHit;
-  if (message === 'darkBlueTransform') return t.darkBlueTransform;
-  if (message.startsWith('whiteSplit:')) return t.whiteSplit(message.slice(11));
-  if (message.startsWith('blackTransform:')) {
-    const color = message.slice(15);
-    const colorName = t.colors[color] ?? color;
-    return t.blackTransform(colorName);
+  if (message.startsWith('whiteSplit:')) {
+    const colors = message.slice(11).split(' + ') as SphereColor[];
+    const dots: ReactNode[] = [];
+    colors.forEach((c, i) => {
+      if (i > 0) dots.push(<span key={`plus-${i}`}> + </span>);
+      dots.push(<SphereDot key={i} color={c} />);
+    });
+    return (
+      <>
+        {t.whiteSplit('').trimEnd()} {dots}
+      </>
+    );
+  }
+  if (message.startsWith('darkTransform:')) {
+    const color = message.slice(14) as SphereColor;
+    return (
+      <>
+        {t.darkTransform('').trimEnd()} <SphereDot color={color} />
+      </>
+    );
   }
   return message;
 }
@@ -59,7 +84,7 @@ function RewardItem({ reward }: { reward: RewardEntry }) {
   const { t } = useI18n();
   const color = SPHERE_COLORS[reward.color];
   const colorName = t.colors[reward.color];
-  const displayMessage = reward.message ? translateMessage(reward.message, t) : colorName;
+  const displayMessage: ReactNode = reward.message ? renderMessage(reward.message, t) : colorName;
 
   return (
     <div className="flex items-center gap-3">
