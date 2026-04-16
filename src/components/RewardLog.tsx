@@ -47,6 +47,11 @@ function translateMessage(message: string, t: ReturnType<typeof useI18n>['t']): 
   if (message === 'blueHit') return t.blueHit;
   if (message === 'darkBlueTransform') return t.darkBlueTransform;
   if (message.startsWith('whiteSplit:')) return t.whiteSplit(message.slice(11));
+  if (message.startsWith('blackTransform:')) {
+    const color = message.slice(15);
+    const colorName = t.colors[color] ?? color;
+    return t.blackTransform(colorName);
+  }
   return message;
 }
 

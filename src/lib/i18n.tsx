@@ -63,11 +63,15 @@ const translations = {
     otClicks: (n: number) => `Voce pode clicar ${n} vezes (por 2 minutos).`,
     otFreeHint: 'Todas as cores sao gratis, exceto as esferas azuis.',
     otTraceHint: 'Cores iguais ficam em sequencia na mesma linha ou coluna.',
+    otFind: (list: string) => `Esferas para encontrar: ${list}.`,
+    otRare: 'esferas mais raras',
+    otColorCount: (n: number) => `Numero de cores diferentes: ${n}`,
 
     // Logic messages
     blueHit: 'Esfera azul! -1 clique.',
     whiteSplit: (colors: string) => `se divide em ${colors}`,
     darkBlueTransform: 'Azul Escuro virou',
+    blackTransform: (color: string) => `Preta virou ${color}`,
 
     // Color names
     colors: {
@@ -79,6 +83,7 @@ const translations = {
       red: 'Vermelha',
       purple: 'Roxa',
       white: 'Branca',
+      black: 'Preta',
       darkblue: 'Azul Escuro',
       hidden: 'Oculta',
     } as Record<string, string>,
@@ -142,10 +147,14 @@ const translations = {
     otClicks: (n: number) => `You can click ${n} times (2 minutes).`,
     otFreeHint: 'All colors are free, except blue spheres.',
     otTraceHint: 'Same colors appear in sequence on the same row or column.',
+    otFind: (list: string) => `Spheres to find: ${list}.`,
+    otRare: 'rarer spheres',
+    otColorCount: (n: number) => `Number of different colors: ${n}`,
 
     blueHit: 'Blue sphere! -1 click.',
     whiteSplit: (colors: string) => `splits into ${colors}`,
     darkBlueTransform: 'Dark Blue became',
+    blackTransform: (color: string) => `Black became ${color}`,
 
     colors: {
       cyan: 'Cyan',
@@ -156,6 +165,7 @@ const translations = {
       red: 'Red',
       purple: 'Purple',
       white: 'White',
+      black: 'Black',
       darkblue: 'Dark Blue',
       hidden: 'Hidden',
     } as Record<string, string>,
@@ -212,9 +222,13 @@ export type Translations = {
   otClicks: (n: number) => string;
   otFreeHint: string;
   otTraceHint: string;
+  otFind: (list: string) => string;
+  otRare: string;
+  otColorCount: (n: number) => string;
   blueHit: string;
   whiteSplit: (colors: string) => string;
   darkBlueTransform: string;
+  blackTransform: (color: string) => string;
   colors: Record<string, string>;
   colorLegend: { blue: string; cyan: string; green: string; yellow: string; orange: string };
 };

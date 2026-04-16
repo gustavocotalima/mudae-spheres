@@ -1,7 +1,16 @@
 import { Sphere, SphereColor, OtGameState, RewardEntry, Position } from './types';
-import { GRID_SIZE, OT_SPHERE_VALUES, OT_COLOR_GROUPS, GAME_CONFIGS } from './constants';
+import {
+  GRID_SIZE,
+  OT_SPHERE_VALUES,
+  OT_FIXED_GROUPS,
+  OT_RARE_POOL,
+  OT_RARE_MIN,
+  OT_RARE_MAX,
+  OT_RARE_SPHERE_COUNT,
+  GAME_CONFIGS,
+} from './constants';
 
-const SPLIT_COLORS: SphereColor[] = ['cyan', 'blue', 'green', 'yellow', 'orange', 'red', 'purple'];
+const SPLIT_COLORS: SphereColor[] = ['cyan', 'blue', 'green', 'yellow', 'orange', 'red'];
 
 function posToIndex(row: number, col: number): number {
   return row * GRID_SIZE + col;
@@ -50,11 +59,13 @@ function findAllContiguousRuns(
   return runs;
 }
 
-function generateOtGrid(): Sphere[] {
+function generateOtGrid(
+  groups: { color: SphereColor; count: number }[],
+): Sphere[] {
   const occupied = new Set<string>();
   const colorMap = new Map<string, SphereColor>();
 
-  for (const group of OT_COLOR_GROUPS) {
+  for (const group of groups) {
     const runs = findAllContiguousRuns(group.count, occupied);
     if (runs.length === 0) return [];
     const chosen = runs[Math.floor(Math.random() * runs.length)];
@@ -85,10 +96,22 @@ function generateOtGrid(): Sphere[] {
   return grid;
 }
 
+function pickColorGroups(): { color: SphereColor; count: number }[] {
+  const range = OT_RARE_MAX - OT_RARE_MIN + 1;
+  const rareN = OT_RARE_MIN + Math.floor(Math.random() * range);
+  const shuffled = [...OT_RARE_POOL].sort(() => Math.random() - 0.5);
+  const rareGroups = shuffled
+    .slice(0, rareN)
+    .map(color => ({ color, count: OT_RARE_SPHERE_COUNT }));
+  return [...OT_FIXED_GROUPS, ...rareGroups];
+}
+
 export function initializeOtGame(): OtGameState {
   let grid: Sphere[] = [];
+  let groups: { color: SphereColor; count: number }[] = [];
   for (let attempt = 0; attempt < 50; attempt++) {
-    grid = generateOtGrid();
+    groups = pickColorGroups();
+    grid = generateOtGrid(groups);
     if (grid.length > 0) break;
   }
 
@@ -100,6 +123,7 @@ export function initializeOtGame(): OtGameState {
     timeRemaining: GAME_CONFIGS.ot.timeLimit,
     gameStatus: 'playing',
     rewardLog: [],
+    colorGroups: groups,
   };
 }
 
@@ -134,6 +158,17 @@ export function processOtClick(state: OtGameState, sphereId: number): OtGameStat
       value: splitTotal,
       isFree: true,
       message: `whiteSplit:${splitColors.join(' + ')}`,
+    });
+  } else if (sphere.color === 'black') {
+    const transformPool = SPLIT_COLORS.filter(c => c !== 'blue');
+    const transformed = transformPool[Math.floor(Math.random() * transformPool.length)];
+    const transformedValue = OT_SPHERE_VALUES[transformed];
+    scoreGain = transformedValue;
+    newRewards.push({
+      color: 'black',
+      value: transformedValue,
+      isFree: true,
+      message: `blackTransform:${transformed}`,
     });
   } else if (isBlue) {
     scoreGain = sphere.value;

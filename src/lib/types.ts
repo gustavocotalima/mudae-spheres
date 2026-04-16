@@ -8,6 +8,7 @@ export type SphereColor =
   | 'red'
   | 'purple'
   | 'white'
+  | 'black'
   | 'darkblue'
   | 'hidden';
 
@@ -60,7 +61,9 @@ export interface OqGameState extends GameState {
 }
 
 // $ot specific - Trace game state
-export type OtGameState = GameState;
+export interface OtGameState extends GameState {
+  colorGroups: { color: SphereColor; count: number }[];
+}
 
 // Grid position
 export interface Position {
