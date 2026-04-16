@@ -58,7 +58,7 @@ export default function Home() {
         </div>
 
         <div className="flex justify-center gap-4 mb-12">
-          {['blue', 'cyan', 'green', 'yellow', 'red', 'purple', 'dark', 'rainbow'].map((color, i) => (
+          {['blue', 'cyan', 'green', 'yellow', 'orange', 'red', 'purple', 'white', 'dark', 'rainbow'].map((color, i) => (
             <div
               key={color}
               className="w-10 h-10 md:w-12 md:h-12 rounded-full animate-bounce border-2 border-gray-600"
