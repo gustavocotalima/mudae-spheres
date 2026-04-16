@@ -40,6 +40,7 @@ export default function SphereButton({
     red: 'shadow-[0_0_20px_rgba(237,66,69,0.8)]',
     purple: 'shadow-[0_0_15px_rgba(155,89,182,0.6)]',
     white: 'shadow-[0_0_20px_rgba(255,255,255,0.8)]',
+    black: 'shadow-[0_0_20px_rgba(0,0,0,0.8)]',
     darkblue: 'shadow-[0_0_15px_rgba(59,72,116,0.6)]',
     hidden: '',
   };
