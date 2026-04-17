@@ -228,17 +228,17 @@ interface I18nContextValue {
 }
 
 const I18nContext = createContext<I18nContextValue>({
-  locale: 'pt',
-  t: translations.pt,
+  locale: 'en',
+  t: translations.en,
   setLocale: () => {},
 });
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(() => {
     if (typeof window !== 'undefined') {
-      return (localStorage.getItem('locale') as Locale) || 'pt';
+      return (localStorage.getItem('locale') as Locale) || 'en';
     }
-    return 'pt';
+    return 'en';
   });
 
   const setLocale = useCallback((l: Locale) => {
