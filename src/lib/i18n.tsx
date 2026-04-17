@@ -25,7 +25,6 @@ const translations = {
     loading: 'Carregando...',
     stock: 'Estoque:',
     playAgain: 'Jogar Novamente',
-    gameOver: 'Jogo Finalizado!',
     rewards: 'Recompensas',
     rewardsPlaceholder: '(As recompensas aparecem aqui)',
     total: 'Total:',
@@ -43,14 +42,13 @@ const translations = {
     // $oc
     ocClicks: (n: number) => `Voce pode clicar ${n} vezes nos botoes abaixo (2 minutos).`,
     ocRedSphere: '1 esfera vermelha',
-    ocHint: (parts: { orange: string; yellow: string; green: string; cyan: string; blue: string }) =>
-      `${parts.orange} (sempre adjacentes a vermelha), ${parts.yellow} (sempre na diagonal da vermelha), ${parts.green} (na mesma linha ou coluna da vermelha), ${parts.cyan} (na mesma linha, coluna ou diagonal) e ${parts.blue} (NUNCA na mesma linha, coluna ou diagonal).`,
+    ocHint: (parts: { orange: string; yellow: string; green: string; teal: string; blue: string }) =>
+      `${parts.orange} (sempre adjacentes a vermelha), ${parts.yellow} (sempre na diagonal da vermelha), ${parts.green} (na mesma linha ou coluna da vermelha), ${parts.teal} (na mesma linha, coluna ou diagonal) e ${parts.blue} (NUNCA na mesma linha, coluna ou diagonal).`,
     ocOrange: '2 laranjas',
     ocYellow: '3 amarelas',
     ocGreen: '4 verdes',
-    ocCyan: 'cianas',
+    ocTeal: 'cianas',
     ocBlue: 'azuis',
-    ocFoundRed: 'Encontrou a Vermelha! +150',
 
     // $oq
     oqClicks: (n: number) => `Voce pode clicar ${n} vezes nos botoes abaixo.`,
@@ -68,13 +66,12 @@ const translations = {
     otColorCount: (n: number) => `Numero de cores diferentes: ${n}`,
 
     // Logic messages
-    blueHit: 'Esfera azul! -1 clique.',
     whiteSplit: (colors: string) => `se divide em ${colors}`,
     darkTransform: (color: string) => `Sombria virou ${color}`,
 
     // Color names
     colors: {
-      cyan: 'Ciano',
+      teal: 'Ciano',
       blue: 'Azul',
       green: 'Verde',
       yellow: 'Amarela',
@@ -90,7 +87,7 @@ const translations = {
     // Color legend ($oq)
     colorLegend: {
       blue: 'Azul = 0',
-      cyan: 'Ciano = 1',
+      teal: 'Ciano = 1',
       green: 'Verde = 2',
       yellow: 'Amarela = 3',
       orange: 'Laranja = 4',
@@ -104,7 +101,7 @@ const translations = {
     clicks: 'clicks',
     minutes: '2 minutes',
 
-    ohDesc: 'Click random spheres to harvest rewards. Blue spheres reveal 3 buttons, cyan reveals 1!',
+    ohDesc: 'Click random spheres to harvest rewards. Blue spheres reveal 3 buttons, teal reveals 1!',
     ocDesc: 'Find the red sphere using color clues! Oranges are adjacent, yellows are diagonal.',
     oqDesc: 'Minesweeper! Find 3 of 4 purple spheres to transform the 4th into red. Use colors as clues!',
     otDesc: 'Avoid blue spheres! Same colors appear in sequence on the same row or column.',
@@ -113,7 +110,6 @@ const translations = {
     loading: 'Loading...',
     stock: 'Stock:',
     playAgain: 'Play Again',
-    gameOver: 'Game Over!',
     rewards: 'Rewards',
     rewardsPlaceholder: '(Rewards appear here)',
     total: 'Total:',
@@ -124,18 +120,17 @@ const translations = {
     spheresStat: 'Spheres',
 
     ohClicks: (n: number) => `You can click ${n} times on the buttons below (2 minutes).`,
-    ohHint: 'Blue spheres reveal 3 buttons; cyan spheres reveal 1.',
+    ohHint: 'Blue spheres reveal 3 buttons; teal spheres reveal 1.',
 
     ocClicks: (n: number) => `You can click ${n} times on the buttons below (2 minutes).`,
     ocRedSphere: '1 red sphere',
-    ocHint: (parts: { orange: string; yellow: string; green: string; cyan: string; blue: string }) =>
-      `${parts.orange} (always adjacent to red), ${parts.yellow} (always diagonal to red), ${parts.green} (same row or column as red), ${parts.cyan} (same row, column or diagonal) and ${parts.blue} (NEVER on same row, column or diagonal).`,
+    ocHint: (parts: { orange: string; yellow: string; green: string; teal: string; blue: string }) =>
+      `${parts.orange} (always adjacent to red), ${parts.yellow} (always diagonal to red), ${parts.green} (same row or column as red), ${parts.teal} (same row, column or diagonal) and ${parts.blue} (NEVER on same row, column or diagonal).`,
     ocOrange: '2 oranges',
     ocYellow: '3 yellows',
     ocGreen: '4 greens',
-    ocCyan: 'cyans',
+    ocTeal: 'teals',
     ocBlue: 'blues',
-    ocFoundRed: 'Found the Red! +150',
 
     oqClicks: (n: number) => `You can click ${n} times on the buttons below.`,
     oqGoal: 'Find {purple} (of 4) to transform the 4th purple into a {red} or higher.',
@@ -150,12 +145,11 @@ const translations = {
     otRare: 'rarer spheres',
     otColorCount: (n: number) => `Number of different colors: ${n}`,
 
-    blueHit: 'Blue sphere! -1 click.',
     whiteSplit: (colors: string) => `splits into ${colors}`,
     darkTransform: (color: string) => `Dark became ${color}`,
 
     colors: {
-      cyan: 'Cyan',
+      teal: 'Teal',
       blue: 'Blue',
       green: 'Green',
       yellow: 'Yellow',
@@ -170,7 +164,7 @@ const translations = {
 
     colorLegend: {
       blue: 'Blue = 0',
-      cyan: 'Cyan = 1',
+      teal: 'Teal = 1',
       green: 'Green = 2',
       yellow: 'Yellow = 3',
       orange: 'Orange = 4',
@@ -193,7 +187,6 @@ export type Translations = {
   loading: string;
   stock: string;
   playAgain: string;
-  gameOver: string;
   rewards: string;
   rewardsPlaceholder: string;
   total: string;
@@ -205,13 +198,12 @@ export type Translations = {
   ohHint: string;
   ocClicks: (n: number) => string;
   ocRedSphere: string;
-  ocHint: (parts: { orange: string; yellow: string; green: string; cyan: string; blue: string }) => string;
+  ocHint: (parts: { orange: string; yellow: string; green: string; teal: string; blue: string }) => string;
   ocOrange: string;
   ocYellow: string;
   ocGreen: string;
-  ocCyan: string;
+  ocTeal: string;
   ocBlue: string;
-  ocFoundRed: string;
   oqClicks: (n: number) => string;
   oqGoal: string;
   oqPurple: string;
@@ -223,11 +215,10 @@ export type Translations = {
   otFind: (list: string) => string;
   otRare: string;
   otColorCount: (n: number) => string;
-  blueHit: string;
   whiteSplit: (colors: string) => string;
   darkTransform: (color: string) => string;
   colors: Record<string, string>;
-  colorLegend: { blue: string; cyan: string; green: string; yellow: string; orange: string };
+  colorLegend: { blue: string; teal: string; green: string; yellow: string; orange: string };
 };
 
 interface I18nContextValue {

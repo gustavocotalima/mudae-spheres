@@ -40,7 +40,7 @@ function countAdjacentPurples(
 function getColorForCount(count: number): SphereColor {
   switch (count) {
     case 0: return 'blue';
-    case 1: return 'cyan';
+    case 1: return 'teal';
     case 2: return 'green';
     case 3: return 'yellow';
     case 4:
@@ -158,8 +158,6 @@ export function processOqClick(state: OqGameState, sphereId: number): OqGameStat
         remainingPurple.value = OQ_SPHERE_VALUES[remainingPurple.color];
         remainingPurple.revealed = true; // Reveal the transformed red/rainbow sphere
       }
-
-      reward.message = `Encontrou ${newPurplesFound} roxas! A 4a vira vermelha!`;
     }
   }
 
@@ -167,8 +165,6 @@ export function processOqClick(state: OqGameState, sphereId: number): OqGameStat
   const clickCost = sphere.color === 'purple' ? 0 : 1;
   const newClicksRemaining = state.clicksRemaining - clickCost;
 
-  // Check if found all 3 purples and clicked the transformed red
-  const allPurplesFound = newPurplesFound >= state.targetPurples;
   const newStatus = newClicksRemaining <= 0 ? 'finished' : 'playing';
 
   return {

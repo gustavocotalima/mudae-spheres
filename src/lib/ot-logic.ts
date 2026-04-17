@@ -11,7 +11,7 @@ import {
   maybeRainbow,
 } from './constants';
 
-const SPLIT_COLORS: SphereColor[] = ['cyan', 'blue', 'green', 'yellow', 'orange', 'red'];
+const SPLIT_COLORS: SphereColor[] = ['teal', 'blue', 'green', 'yellow', 'orange', 'red'];
 
 function posToIndex(row: number, col: number): number {
   return row * GRID_SIZE + col;
@@ -70,11 +70,12 @@ function generateOtGrid(
     const runs = findAllContiguousRuns(group.count, occupied);
     if (runs.length === 0) return [];
     const chosen = runs[Math.floor(Math.random() * runs.length)];
+    // Rare red→rainbow upgrade: roll once per red group so all reds in the run upgrade together
+    const groupColor = group.color === 'red' ? maybeRainbow('red') : group.color;
     for (const pos of chosen) {
       const key = `${pos.row},${pos.col}`;
       occupied.add(key);
-      // Rare red→rainbow upgrade per sphere
-      colorMap.set(key, group.color === 'red' ? maybeRainbow('red') : group.color);
+      colorMap.set(key, groupColor);
     }
   }
 
@@ -177,7 +178,6 @@ export function processOtClick(state: OtGameState, sphereId: number): OtGameStat
     newRewards.push({
       color: 'blue',
       value: sphere.value,
-      message: 'blueHit',
     });
   } else {
     scoreGain = sphere.value;

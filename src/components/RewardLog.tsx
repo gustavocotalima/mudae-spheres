@@ -9,7 +9,7 @@ function SphereDot({ color }: { color: SphereColor }) {
   return (
     <span
       aria-label={color}
-      className="inline-block w-3 h-3 rounded-full align-middle border border-gray-500/60 mx-0.5"
+      className="inline-block w-6 h-6 rounded-full align-middle mx-0.5"
       style={{ background: SPHERE_GRADIENTS[color] }}
     />
   );
@@ -37,7 +37,7 @@ export default function RewardLog({ rewards, title }: RewardLogProps) {
   return (
     <div className="w-full max-w-md mx-auto mt-4 bg-gray-800 rounded-lg p-4">
       <h3 className="text-gray-400 text-sm uppercase tracking-wide mb-3">{displayTitle}</h3>
-      <div className="space-y-2 max-h-48 overflow-y-auto">
+      <div className="space-y-2">
         {rewards.map((reward, index) => (
           <RewardItem key={index} reward={reward} />
         ))}
@@ -55,7 +55,6 @@ export default function RewardLog({ rewards, title }: RewardLogProps) {
 }
 
 function renderMessage(message: string, t: ReturnType<typeof useI18n>['t']): ReactNode {
-  if (message === 'blueHit') return t.blueHit;
   if (message.startsWith('whiteSplit:')) {
     const colors = message.slice(11).split(' + ') as SphereColor[];
     const dots: ReactNode[] = [];
@@ -89,8 +88,8 @@ function RewardItem({ reward }: { reward: RewardEntry }) {
   return (
     <div className="flex items-center gap-3">
       <div
-        className="w-6 h-6 rounded-full border border-gray-600 flex-shrink-0"
-        style={{ backgroundColor: color }}
+        className="w-6 h-6 rounded-full flex-shrink-0"
+        style={{ background: SPHERE_GRADIENTS[reward.color] }}
       />
       <div className="flex-1 flex items-center justify-between">
         <span className="text-gray-300 text-sm">

@@ -20,7 +20,7 @@ export default function SphereGrid({
 }: SphereGridProps) {
   return (
     <div
-      className="grid gap-2 p-4 bg-gray-800 rounded-xl"
+      className="grid gap-2 p-4 bg-gray-800 rounded-xl justify-items-center"
       style={{
         gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
       }}

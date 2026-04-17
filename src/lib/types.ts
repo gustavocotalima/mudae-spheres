@@ -1,6 +1,6 @@
 // Sphere Colors
 export type SphereColor =
-  | 'cyan'
+  | 'teal'
   | 'blue'
   | 'green'
   | 'yellow'
@@ -23,7 +23,7 @@ export interface Sphere {
   col: number;
   // Special properties
   isFree?: boolean;        // Purple - doesn't consume click
-  revealsCount?: number;   // How many adjacent to reveal (blue=3, cyan=1)
+  revealsCount?: number;   // How many adjacent to reveal (blue=3, teal=1)
   splits?: boolean;        // White - splits into 4 random
 }
 

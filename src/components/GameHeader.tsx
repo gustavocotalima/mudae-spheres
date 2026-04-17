@@ -18,7 +18,6 @@ export default function GameHeader({
   maxClicks,
   totalScore,
   timeRemaining,
-  gameStatus,
   extraInfo,
 }: GameHeaderProps) {
   const { t } = useI18n();
@@ -59,14 +58,6 @@ export default function GameHeader({
           </span>
         </div>
       </div>
-
-      {gameStatus === 'finished' && (
-        <div className="mt-3 text-center">
-          <span className="inline-block bg-yellow-500 text-black px-4 py-2 rounded-lg font-bold">
-            {t.gameOver}
-          </span>
-        </div>
-      )}
 
       {extraInfo && (
         <div className="mt-3 text-center text-gray-300 text-sm">

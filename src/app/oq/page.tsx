@@ -108,7 +108,7 @@ export default function OrbQuestPage() {
               <p className="text-xs text-gray-400">{t.oqHint}</p>
               <div className="text-xs grid grid-cols-5 gap-1 text-center">
                 <span className="text-blue-400">{t.colorLegend.blue}</span>
-                <span className="text-cyan-400">{t.colorLegend.cyan}</span>
+                <span className="text-teal-400">{t.colorLegend.teal}</span>
                 <span className="text-green-400">{t.colorLegend.green}</span>
                 <span className="text-yellow-400">{t.colorLegend.yellow}</span>
                 <span className="text-orange-400">{t.colorLegend.orange}</span>
@@ -116,26 +116,6 @@ export default function OrbQuestPage() {
             </div>
           }
         />
-
-        <div className="mb-4 flex justify-center gap-2">
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className={`w-8 h-8 rounded-full border-2 ${
-                i < gameState.purplesFound
-                  ? 'bg-purple-500 border-purple-400'
-                  : 'bg-gray-700 border-gray-600'
-              } transition-all duration-300`}
-            />
-          ))}
-          <div className="w-8 h-8 rounded-full border-2 border-gray-600 flex items-center justify-center">
-            {gameState.purplesFound >= 3 ? (
-              <div className="w-6 h-6 rounded-full bg-red-500 animate-pulse" />
-            ) : (
-              <span className="text-gray-500 text-xs">?</span>
-            )}
-          </div>
-        </div>
 
         <SphereGrid
           spheres={gameState.grid}

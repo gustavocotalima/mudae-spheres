@@ -29,7 +29,7 @@ function weightedRandomColor(): SphereColor {
     }
   }
 
-  return 'cyan'; // fallback
+  return 'teal'; // fallback
 }
 
 // Generate random sphere
@@ -82,7 +82,7 @@ export function initializeOhGame(): GameState {
 // Handle white sphere split
 function handleWhiteSplit(): RewardEntry[] {
   const rewards: RewardEntry[] = [];
-  const splitColors: SphereColor[] = ['cyan', 'blue', 'green', 'yellow', 'red'];
+  const splitColors: SphereColor[] = ['teal', 'blue', 'green', 'yellow', 'red'];
 
   for (let i = 0; i < 4; i++) {
     const color = maybeRainbow(splitColors[Math.floor(Math.random() * splitColors.length)]);
@@ -96,7 +96,7 @@ function handleWhiteSplit(): RewardEntry[] {
 
 // Handle dark sphere transform — any sphere appears in its shadow (equal chance)
 function handleDarkTransform(): { color: SphereColor; value: number } {
-  const transformColors: SphereColor[] = ['cyan', 'blue', 'green', 'yellow', 'orange', 'red', 'purple'];
+  const transformColors: SphereColor[] = ['teal', 'blue', 'green', 'yellow', 'orange', 'red', 'purple'];
   const color = maybeRainbow(transformColors[Math.floor(Math.random() * transformColors.length)]);
   const valueRange = OH_SPHERE_VALUES[color];
   const value = randomInRange(valueRange.min, valueRange.max);

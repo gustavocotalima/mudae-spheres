@@ -91,7 +91,7 @@ function getSameRowOrColumn(row: number, col: number): Position[] {
   return positions;
 }
 
-// Get all positions in row, column, or diagonal (for cyan)
+// Get all positions in row, column, or diagonal (for teal)
 function getLinePositions(row: number, col: number): Position[] {
   const positions = new Set<string>();
 
@@ -176,7 +176,7 @@ export function initializeOcGame(): OcGameState {
     }
   }
 
-  // Step 5: Get positions on red's lines (for cyan) and safe positions (for blue)
+  // Step 5: Get positions on red's lines (for teal) and safe positions (for blue)
   const linePositions = getLinePositions(redRow, redCol);
   const lineSet = new Set(linePositions.map(p => `${p.row},${p.col}`));
   lineSet.add(`${redRow},${redCol}`); // Red is also on its own lines
@@ -197,7 +197,7 @@ export function initializeOcGame(): OcGameState {
       } else if (greenPositions.some(p => p.row === row && p.col === col)) {
         color = 'green';
       } else if (lineSet.has(posKey)) {
-        color = 'cyan';
+        color = 'teal';
       }
       // else blue (safe zone - not on any line)
 

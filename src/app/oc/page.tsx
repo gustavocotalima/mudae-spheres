@@ -83,26 +83,21 @@ export default function OrbChestPage() {
             <div className="space-y-2 text-left">
               <p>{t.ocClicks(gameState.maxClicks)}</p>
               <p className="text-red-400 font-semibold">{t.ocRedSphere}</p>
-              <p className="text-xs text-gray-400">
-                {t.ocHint({
-                  orange: `<span class="text-orange-400">${t.ocOrange}</span>`,
-                  yellow: `<span class="text-yellow-400">${t.ocYellow}</span>`,
-                  green: `<span class="text-green-400">${t.ocGreen}</span>`,
-                  cyan: `<span class="text-cyan-400">${t.ocCyan}</span>`,
-                  blue: `<span class="text-blue-400">${t.ocBlue}</span>`,
-                })}
-              </p>
+              <p
+                className="text-xs text-gray-400"
+                dangerouslySetInnerHTML={{
+                  __html: t.ocHint({
+                    orange: `<span class="text-orange-400">${t.ocOrange}</span>`,
+                    yellow: `<span class="text-yellow-400">${t.ocYellow}</span>`,
+                    green: `<span class="text-green-400">${t.ocGreen}</span>`,
+                    teal: `<span class="text-teal-400">${t.ocTeal}</span>`,
+                    blue: `<span class="text-blue-400">${t.ocBlue}</span>`,
+                  }),
+                }}
+              />
             </div>
           }
         />
-
-        {gameState.foundRed && (
-          <div className="mb-4 text-center">
-            <span className="inline-block bg-red-500 text-white px-4 py-2 rounded-lg font-bold animate-pulse">
-              {t.ocFoundRed}
-            </span>
-          </div>
-        )}
 
         <SphereGrid
           spheres={gameState.grid}

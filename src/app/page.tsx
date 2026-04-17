@@ -58,13 +58,13 @@ export default function Home() {
         </div>
 
         <div className="flex justify-center gap-4 mb-12">
-          {['blue', 'cyan', 'green', 'yellow', 'orange', 'red', 'purple', 'white', 'dark', 'rainbow'].map((color, i) => (
+          {['purple', 'blue', 'teal', 'green', 'yellow', 'orange', 'red', 'rainbow', 'white', 'dark'].map((color, i) => (
             <div
               key={color}
-              className="w-10 h-10 md:w-12 md:h-12 rounded-full animate-bounce border-2 border-gray-600"
+              className="w-10 h-10 md:w-12 md:h-12 rounded-full animate-bounce"
               style={{
                 background: SPHERE_GRADIENTS[color as keyof typeof SPHERE_GRADIENTS],
-                animationDelay: `${i * 0.1}s`,
+                animationDelay: `${i * 0.15}s`,
               }}
             />
           ))}
@@ -80,7 +80,7 @@ export default function Home() {
               <div className="bg-gray-800 rounded-xl p-6 border-2 border-gray-700 hover:border-gray-500 transition-all duration-300 hover:scale-[1.02]">
                 <div className="flex items-start gap-4">
                   <div
-                    className="w-16 h-16 rounded-full flex-shrink-0 border-2 border-gray-600 group-hover:scale-110 transition-transform"
+                    className="w-16 h-16 rounded-full flex-shrink-0 group-hover:scale-110 transition-transform"
                     style={{ background: game.gradient }}
                   />
                   <div className="flex-1">
